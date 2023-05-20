@@ -81,6 +81,14 @@ public class DefaultExecutionEnvironment extends TestRunner {
             String selector = step.getProperty(step.getParameters().get("selector"));
             String value = findElement(selector).getAttribute("value");
             step.putProperty("{" + step.getParameters().get("target") + "}", value);
+        } else if ("82".equals(step.getType())) {
+            if ("SWITCH_TO_DEFAULT".equals(step.getParameters().get("action"))) {
+                this.webDriver.switchTo().defaultContent();
+            } else if ("SWITCH_TO".equals(step.getParameters().get("action"))) {
+                String selector = step.getProperty(step.getParameters().get("selector"));
+                WebElement webElement = findElement(selector);
+                this.webDriver.switchTo().frame(webElement);
+            }
         }
     }
 
