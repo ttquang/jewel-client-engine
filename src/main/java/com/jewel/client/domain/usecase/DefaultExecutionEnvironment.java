@@ -56,7 +56,14 @@ public class DefaultExecutionEnvironment extends TestRunner {
             throw new RuntimeException(e);
         }
 
-        if ("1".equals(step.getType())) {
+        if ("Delay".equals(step.getType())) {
+            try {
+                String period = step.getParameters().get("period");
+                Thread.sleep(Long.parseLong(period));
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        } else if ("1".equals(step.getType())) {
             String selector = step.getProperty(step.getParameters().get("selector"));
             WebElement webElement = findElement(selector);
 
